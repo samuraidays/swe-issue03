@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>課題</title>
+  <meta name="description" content="ページの解説" />
+</head>
+
+<body>
+  <header class="header">
+
+  <h2>ToDoリスト</h2>
+    <form action="" method="post" id="form1">
+        <input type="radio" name="status" value="all" checked="checked">すべて
+        <input type="radio" name="status" value="doing" >作業中
+        <input type="radio" name="status" value="done" >完了
+    
+    <table id="tbl1" border="0">
+        <tbody id="tb">
+            <tr>
+            <th>ID</th>
+            <th>コメント</th>
+            <th>状態</th>
+            <th></th>
+            </tr>
+        </tbody>
+    </table>
+    <h3>新規タスクの追加</h3>
+    <p><input id="add" type="text" name="task"> <input type="button" value="追加" id="btnadd"></p>
+    </form>
+</body>
+
+<script>
+    function addTask() {
+        // ID計算
+        let rowNum = tbl1.rows.length;
+        const newtask = [];
+
+        // 配列用意 [id, comment]
+        newtask.push(rowNum - 1);
+        newtask.push(document.forms['form1'].elements['task'].value);
+
+        const fragment = document.createDocumentFragment();
+        const row = document.createElement("tr");
+
+        // id設定
+        const idCell = document.createElement("td");
+        const idCellText = document.createTextNode(newtask[0]);
+        idCell.appendChild(idCellText);
+        fragment.appendChild(idCell);
+
+        // comment設定
+        const commentCell = document.createElement("td");
+        const commentCellText = document.createTextNode(newtask[1]);
+        commentCell.appendChild(commentCellText);
+        fragment.appendChild(commentCell);
+
+        // status設定
+        const statusCell = document.createElement("td");
+        const statusCellInput = document.createElement("input");
+		statusCellInput.setAttribute("type","button"); 
+		statusCellInput.setAttribute("value","作業中");
+        statusCell.appendChild(statusCellInput);
+        fragment.appendChild(statusCell);
+
+        // 削除ボタン設定
+        const delCell = document.createElement("td");
+        const delCellIput = document.createElement("input");
+		delCellIput.setAttribute("type","button"); 
+		delCellIput.setAttribute("value","削除");
+        delCell.appendChild(delCellIput);
+        fragment.appendChild(delCell);        
+
+        // tr追加
+        row.appendChild(fragment);
+
+        // tbに追加
+        document.getElementById('tb').appendChild(row);
+    }
+    btnadd.addEventListener( "click" , addTask );
+</script>
+
+</html>
