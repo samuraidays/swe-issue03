@@ -1,28 +1,30 @@
 function addTask() {
   // オブジェクト用意
   const newtask = {
-    content: "",
+    content: document.forms['form'].elements['task'].value,
     status: "作業中",
   };
 
-  newtask.content = document.forms['form'].elements['task'].value;
+  // オブジェクトを配列に入れる
+  let tasks = [];
+  tasks.push(newtask);
+
+  // テキストボックスクリア
   document.forms['form'].elements['task'].value = '';
 
   let fragment = document.createDocumentFragment();
-  const row = document.createElement("tr");
 
   // id, comment設定
-  fragment = createIdComment(fragment, newtask.content);
+  fragment = createIdComment(fragment, tasks[0].content);
 
   // statusボタン設定
-  fragment = createStatusButton(fragment, newtask.status);
+  fragment = createStatusButton(fragment, tasks[0].status);
 
   // 削除ボタン設定
   fragment = delButton(fragment);
 
-  // 1行分追加
-  row.appendChild(fragment);
-  document.getElementById('tb').appendChild(row);
+  // 1行分HTML表示
+  displayHTML(fragment);
 }
 
 function createIdComment(row, content){
@@ -65,3 +67,12 @@ function delButton(row) {
 
   return row
 }
+
+function displayHTML(fragment) {
+  const row = document.createElement("tr");
+  row.appendChild(fragment);
+  document.getElementById('tb').appendChild(row);
+}
+
+const btnAdd = document.getElementById("btnadd");
+btnAdd.addEventListener( "click" , addTask );
