@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>課題</title>
+  <meta name="description" content="ページの解説" />
+</head>
+
+<body>
+  <header class="header">
+  
+
+  <h2>ToDoリスト</h2>
+    <form action="" method="post" id="form">
+        <input type="radio" name="status" value="all" checked="checked">すべて
+        <input type="radio" name="status" value="doing" >作業中
+        <input type="radio" name="status" value="done" >完了
+    
+    <table id="tbl" border="0">
+        <tbody id="tb">
+            <tr>
+            <th>ID</th>
+            <th>コメント</th>
+            <th>状態</th>
+            <th></th>
+            </tr>
+        </tbody>
+    </table>
+    <h3>新規タスクの追加</h3>
+    <p><input id="add" type="text" name="task"> <input type="button" value="追加" id="btnadd"></p>
+    </form>
+</body>
+
+<script src="script.js"></script>
+
+</html>
