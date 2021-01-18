@@ -50,6 +50,7 @@ function createStatusButton(row, status){
   const statusCell = document.createElement("td");
   const statusCellInput = document.createElement("input");
   statusCellInput.setAttribute("type","button"); 
+  statusCellInput.setAttribute("onclick","changeStatus()");
   statusCellInput.setAttribute("value",status);
   statusCell.appendChild(statusCellInput);
   row.appendChild(statusCell);
@@ -91,6 +92,15 @@ function removeTr(){
   }
   tr.parentNode.removeChild(tr);
 
+}
+
+function changeStatus(){
+  const td = event.target.parentNode;
+  if(td.firstChild.value === '作業中'){
+    td.firstChild.value = "完了";
+  } else if (td.firstChild.value === "完了"){
+    td.firstChild.value = "作業中";
+  }
 }
 
 const btnAdd = document.getElementById("btnadd");
