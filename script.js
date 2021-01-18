@@ -61,6 +61,8 @@ function delButton(row) {
   const delCell = document.createElement("td");
   const delCellIput = document.createElement("input");
   delCellIput.setAttribute("type","button"); 
+  delCellIput.setAttribute("id","td"); 
+  delCellIput.setAttribute("onclick","removeTr()");
   delCellIput.setAttribute("value","削除");
   delCell.appendChild(delCellIput);
   row.appendChild(delCell);
@@ -74,5 +76,26 @@ function displayHTML(fragment) {
   document.getElementById('tb').appendChild(row);
 }
 
+function removeTr(){
+  const td = event.target.parentNode; 
+  const tr = td.parentNode;
+//  console.log(tr);
+  let nextTr = tr.nextElementSibling;
+  while(nextTr !== null){
+    const childTd = nextTr.childNodes[0];
+//    console.log(childTd);
+    const newRow = childTd.textContent - 1;
+    childTd.textContent = newRow;
+    nextTr = nextTr.nextElementSibling;
+//    console.log(nextTr);
+  }
+  tr.parentNode.removeChild(tr);
+
+}
+
 const btnAdd = document.getElementById("btnadd");
-btnAdd.addEventListener( "click" , addTask );
+btnAdd.addEventListener( "click" , addTask);
+
+//このパターンは動かない
+//const btnDel = document.getElementById("td");
+//btnDel.addEventListener("click",removeTr());
