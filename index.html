@@ -12,9 +12,9 @@
 
   <h2>ToDoリスト</h2>
     <form action="" method="post" id="form">
-        <input type="radio" name="status" value="all" checked="checked">すべて
-        <input type="radio" name="status" value="doing" >作業中
-        <input type="radio" name="status" value="done" >完了
+        <input type="radio" name="status" value="all" onclick="displayStatus('all')" checked="checked">すべて
+        <input type="radio" name="status" value="doing" onclick="displayStatus('doing')">作業中
+        <input type="radio" name="status" value="done" onclick="displayStatus('done')">完了
     
     <table id="tbl" border="0">
         <tbody id="tb">

@@ -73,8 +73,14 @@ function delButton(row) {
 
 function displayHTML(fragment) {
   const row = document.createElement("tr");
+  row.setAttribute("id","addtr");
   row.appendChild(fragment);
   document.getElementById('tb').appendChild(row);
+  const form = document.getElementById('form');
+  if(form.childNodes[5].checked === true){
+    let tb = document.getElementById('tb')
+    tb.lastElementChild.style.display ="none";
+  }
 }
 
 function removeTr(){
@@ -103,8 +109,43 @@ function changeStatus(){
   }
 }
 
+function displayStatus(status){
+  let addTr = document.getElementById('addtr')
+  while(addTr !== null){
+    //console.log(addTr.childNodes);
+    //console.log(addTr.childNodes[2]);
+    //console.log(addTr.childNodes[2].firstChild.value);
+
+    switch(status){
+      case 'all':
+        addTr.style.display ="table-row";
+        break;
+      case 'doing':
+        if(addTr.childNodes[2].firstChild.value !== "作業中"){
+          addTr.style.display ="none";
+        } else {
+          addTr.style.display ="table-row";
+        }
+        break;
+      case 'done':
+        if(addTr.childNodes[2].firstChild.value !== "完了"){
+          addTr.style.display ="none";
+        } else {
+          addTr.style.display ="table-row";
+        }
+        break;
+      default:
+        console.log("エラー:想定外の値です")
+    }
+    addTr = addTr.nextElementSibling;
+  }
+}
+
 const btnAdd = document.getElementById("btnadd");
 btnAdd.addEventListener( "click" , addTask);
+
+//const doing = document.getElementById("doing");
+//doing.addEventListener( "click" , displayStatus(doing));
 
 //このパターンは動かない
 //const btnDel = document.getElementById("td");
