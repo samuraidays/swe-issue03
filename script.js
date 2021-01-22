@@ -25,6 +25,7 @@ function addTask() {
 
   // 1行分HTML表示
   displayHTML(fragment);
+
 }
 
 function createIdComment(row, content){
@@ -86,15 +87,12 @@ function displayHTML(fragment) {
 function removeTr(){
   const td = event.target.parentNode; 
   const tr = td.parentNode;
-//  console.log(tr);
   let nextTr = tr.nextElementSibling;
   while(nextTr !== null){
     const childTd = nextTr.childNodes[0];
-//    console.log(childTd);
     const newRow = childTd.textContent - 1;
     childTd.textContent = newRow;
     nextTr = nextTr.nextElementSibling;
-//    console.log(nextTr);
   }
   tr.parentNode.removeChild(tr);
 
@@ -107,15 +105,17 @@ function changeStatus(){
   } else if (td.firstChild.value === "完了"){
     td.firstChild.value = "作業中";
   }
+  const form = document.getElementById('form');
+  if(form.childNodes[3].checked === true){
+    displayStatus('doing');
+  } else if(form.childNodes[5].checked === true){
+    displayStatus('done');
+  }
 }
 
 function displayStatus(status){
   let addTr = document.getElementById('addtr')
   while(addTr !== null){
-    //console.log(addTr.childNodes);
-    //console.log(addTr.childNodes[2]);
-    //console.log(addTr.childNodes[2].firstChild.value);
-
     switch(status){
       case 'all':
         addTr.style.display ="table-row";
@@ -144,9 +144,3 @@ function displayStatus(status){
 const btnAdd = document.getElementById("btnadd");
 btnAdd.addEventListener( "click" , addTask);
 
-//const doing = document.getElementById("doing");
-//doing.addEventListener( "click" , displayStatus(doing));
-
-//このパターンは動かない
-//const btnDel = document.getElementById("td");
-//btnDel.addEventListener("click",removeTr());
