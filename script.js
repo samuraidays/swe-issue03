@@ -50,7 +50,7 @@ function createIdComment(row, content){
 function createStatusButton(row, status){
   const statusCell = document.createElement("td");
   const statusCellInput = document.createElement("input");
-  statusCellInput.setAttribute("type","button"); 
+  statusCellInput.setAttribute("type","button");
   statusCellInput.setAttribute("onclick","changeStatus()");
   statusCellInput.setAttribute("value",status);
   statusCell.appendChild(statusCellInput);
@@ -78,7 +78,7 @@ function displayHTML(fragment) {
   row.appendChild(fragment);
   document.getElementById('tb').appendChild(row);
   const form = document.getElementById('form');
-  if(form.childNodes[5].checked === true){
+  if(form.childNodes[7].checked === true){
     let tb = document.getElementById('tb')
     tb.lastElementChild.style.display ="none";
   }
@@ -106,9 +106,9 @@ function changeStatus(){
     td.firstChild.value = "作業中";
   }
   const form = document.getElementById('form');
-  if(form.childNodes[3].checked === true){
+  if(form.childNodes[5].checked === true){
     displayStatus('doing');
-  } else if(form.childNodes[5].checked === true){
+  } else if(form.childNodes[7].checked === true){
     displayStatus('done');
   }
 }
@@ -140,6 +140,21 @@ function displayStatus(status){
     addTr = addTr.nextElementSibling;
   }
 }
+
+const all = document.getElementById("all");
+all.addEventListener( "click" , () => {
+  displayStatus(all.value)
+});
+
+const doing = document.getElementById("doing");
+doing.addEventListener( "click" , () => {
+  displayStatus(doing.value)
+});
+
+const done = document.getElementById("done");
+done.addEventListener( "click" , () => {
+  displayStatus(done.value)
+});
 
 const btnAdd = document.getElementById("btnadd");
 btnAdd.addEventListener( "click" , addTask);
