@@ -25,6 +25,7 @@ function addTask() {
 
   // 1行分HTML表示
   displayHTML(fragment);
+
 }
 
 function createIdComment(row, content){
@@ -49,7 +50,7 @@ function createIdComment(row, content){
 function createStatusButton(row, status){
   const statusCell = document.createElement("td");
   const statusCellInput = document.createElement("input");
-  statusCellInput.setAttribute("type","button"); 
+  statusCellInput.setAttribute("type","button");
   statusCellInput.setAttribute("onclick","changeStatus()");
   statusCellInput.setAttribute("value",status);
   statusCell.appendChild(statusCellInput);
@@ -73,22 +74,25 @@ function delButton(row) {
 
 function displayHTML(fragment) {
   const row = document.createElement("tr");
+  row.setAttribute("id","addtr");
   row.appendChild(fragment);
   document.getElementById('tb').appendChild(row);
+  const form = document.getElementById('form');
+  if(form.childNodes[7].checked === true){
+    let tb = document.getElementById('tb')
+    tb.lastElementChild.style.display ="none";
+  }
 }
 
 function removeTr(){
   const td = event.target.parentNode; 
   const tr = td.parentNode;
-//  console.log(tr);
   let nextTr = tr.nextElementSibling;
   while(nextTr !== null){
     const childTd = nextTr.childNodes[0];
-//    console.log(childTd);
     const newRow = childTd.textContent - 1;
     childTd.textContent = newRow;
     nextTr = nextTr.nextElementSibling;
-//    console.log(nextTr);
   }
   tr.parentNode.removeChild(tr);
 
@@ -101,11 +105,57 @@ function changeStatus(){
   } else if (td.firstChild.value === "完了"){
     td.firstChild.value = "作業中";
   }
+  const form = document.getElementById('form');
+  if(form.childNodes[5].checked === true){
+    displayStatus('doing');
+  } else if(form.childNodes[7].checked === true){
+    displayStatus('done');
+  }
 }
+
+function displayStatus(status){
+  let addTr = document.getElementById('addtr')
+  while(addTr !== null){
+    switch(status){
+      case 'all':
+        addTr.style.display ="table-row";
+        break;
+      case 'doing':
+        if(addTr.childNodes[2].firstChild.value !== "作業中"){
+          addTr.style.display ="none";
+        } else {
+          addTr.style.display ="table-row";
+        }
+        break;
+      case 'done':
+        if(addTr.childNodes[2].firstChild.value !== "完了"){
+          addTr.style.display ="none";
+        } else {
+          addTr.style.display ="table-row";
+        }
+        break;
+      default:
+        console.log("エラー:想定外の値です")
+    }
+    addTr = addTr.nextElementSibling;
+  }
+}
+
+const all = document.getElementById("all");
+all.addEventListener( "click" , () => {
+  displayStatus(all.value)
+});
+
+const doing = document.getElementById("doing");
+doing.addEventListener( "click" , () => {
+  displayStatus(doing.value)
+});
+
+const done = document.getElementById("done");
+done.addEventListener( "click" , () => {
+  displayStatus(done.value)
+});
 
 const btnAdd = document.getElementById("btnadd");
 btnAdd.addEventListener( "click" , addTask);
 
-//このパターンは動かない
-//const btnDel = document.getElementById("td");
-//btnDel.addEventListener("click",removeTr());
